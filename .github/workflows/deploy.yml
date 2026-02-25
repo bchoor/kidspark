@@ -1,0 +1,92 @@
+name: Deploy KidSpark
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      skip_migrations:
+        description: 'Skip database migrations'
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+
+  detect-migrations:
+    name: Detect Pending Migrations
+    runs-on: ubuntu-latest
+    outputs:
+      has_new_migrations: ${{ steps.check.outputs.has_new }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - id: check
+        run: |
+          NEW_MIGRATIONS=$(git diff --name-only HEAD~1 HEAD -- 'migrations/*.sql' || true)
+          if [ -n "$NEW_MIGRATIONS" ]; then
+            echo "has_new=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::New migrations detected: $NEW_MIGRATIONS"
+          else
+            echo "has_new=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  migrate:
+    name: Apply Migrations
+    needs: [typecheck, detect-migrations]
+    if: needs.detect-migrations.outputs.has_new_migrations == 'true' && !inputs.skip_migrations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Apply D1 migrations
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bunx wrangler d1 migrations apply kidspark-db --remote
+
+  deploy:
+    name: Deploy Pages
+    needs: [typecheck, detect-migrations, migrate]
+    if: always() && needs.typecheck.result == 'success' && (needs.migrate.result == 'success' || needs.migrate.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Build
+        run: bun run build
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bunx wrangler pages deploy dist/ --project-name=kidspark
+
+  smoke-test:
+    name: Smoke Test
+    needs: [deploy]
+    if: always() && needs.deploy.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check app responds
+        run: |
+          sleep 30
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' https://kidspark.pages.dev/ || true)
+          if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
+            echo "App is up (HTTP $STATUS)"
+          else
+            echo "::warning::App returned HTTP $STATUS — may still be deploying"
+          fi

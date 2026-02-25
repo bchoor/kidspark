@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "computedHash": "a2ebe92433006ce81bbdcfe24984663678bbbb20991a3686e34814de1097c44c"
+    },
+    "remotion-render": {
+      "source": "inference-sh-8/skills",
+      "sourceType": "github",
+      "computedHash": "479d21768c7997f63785ec577ad03bbaab3382a36d589c3461a00fb201be81a5"
+    }
+  }
+}

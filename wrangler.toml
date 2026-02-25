@@ -1,0 +1,16 @@
+name = "kidspark"
+compatibility_date = "2024-12-01"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kidspark-db"
+database_id = "placeholder-will-be-set-after-creation"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "kidspark-media"
+
+[vars]
+ADMIN_PASSWORD = "change-me-in-dashboard"

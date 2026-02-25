@@ -1,0 +1,15 @@
+{
+  "name": "kidspark",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*", "worker"],
+  "scripts": {
+    "build:learn": "cd apps/learn && bunx vite build",
+    "build:cms": "cd apps/cms && bunx vite build",
+    "build:worker": "cd worker && bunx esbuild src/index.ts --bundle --outfile=../dist/_worker.js --format=esm --platform=neutral --external:cloudflare:*",
+    "build": "bun run build:learn && bun run build:cms && bun run build:worker",
+    "dev:learn": "cd apps/learn && bunx vite --port 5173",
+    "dev:cms": "cd apps/cms && bunx vite --port 5174",
+    "dev": "bunx wrangler pages dev dist/ --d1 DB=kidspark-db --r2 MEDIA=kidspark-media",
+    "typecheck": "bun run --filter '*' typecheck"
+  }
+}
