@@ -7,18 +7,19 @@ export async function handleLearn(
     env: Env,
     subpath: string
 ): Promise<Response> {
-    const sessionOrResponse = await requireKidSession(request, env);
-    if (sessionOrResponse instanceof Response) return sessionOrResponse;
-
     const method = request.method;
 
-    // GET /api/learn/kids — list all kids for kid selector UI
+    // GET /api/learn/kids — PUBLIC: list kids so password gate can show selector before login
     if (subpath === '/kids' && method === 'GET') {
         const result = await env.DB.prepare(
             `SELECT id, name, avatar, age FROM kids ORDER BY name ASC`
         ).all();
         return json({ data: result.results });
     }
+
+    // All other learn routes require an active kid session
+    const sessionOrResponse = await requireKidSession(request, env);
+    if (sessionOrResponse instanceof Response) return sessionOrResponse;
 
     // GET /api/learn/courses — list published courses
     if (subpath === '/courses' && method === 'GET') {
