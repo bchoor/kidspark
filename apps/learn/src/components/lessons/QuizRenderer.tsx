@@ -64,7 +64,6 @@ export function QuizRenderer({ lessonId, content, onComplete }: Props) {
                 current={currentIdx + 1}
                 total={questions.length}
                 label={`Question ${currentIdx + 1} of ${questions.length}`}
-                color="bg-warning"
             />
 
             {/* Character */}

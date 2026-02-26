@@ -11,6 +11,13 @@ interface Stats {
     themes: number;
 }
 
+function getGreeting() {
+    const h = new Date().getHours();
+    if (h < 12) return 'Good morning';
+    if (h < 17) return 'Good afternoon';
+    return 'Good evening';
+}
+
 export function DashboardPage() {
     const [stats, setStats] = useState<Stats | null>(null);
     const [loading, setLoading] = useState(true);
@@ -39,40 +46,52 @@ export function DashboardPage() {
 
     const statCards = stats
         ? [
-            { label: 'Courses', value: stats.courses, to: '/courses', color: 'text-primary', icon: '📚' },
-            { label: 'Lessons', value: `${stats.publishedLessons} / ${stats.lessons}`, to: '/lessons', color: 'text-success', icon: '📖', sub: 'published' },
-            { label: 'Kids', value: stats.kids, to: '/kids', color: 'text-secondary', icon: '👦' },
-            { label: 'Topics', value: stats.topics, to: '/topics', color: 'text-accent', icon: '🦕' },
-            { label: 'Themes', value: stats.themes, to: '/themes', color: 'text-warning', icon: '🎨' },
+            { label: 'Courses', value: stats.courses, to: '/courses', icon: '📚', accent: 'text-primary' },
+            { label: 'Lessons', value: stats.lessons, sub: `${stats.publishedLessons} published`, to: '/lessons', icon: '📖', accent: 'text-secondary' },
+            { label: 'Kids', value: stats.kids, to: '/kids', icon: '👦', accent: 'text-accent' },
+            { label: 'Topics', value: stats.topics, to: '/topics', icon: '🦕', accent: 'text-success' },
+            { label: 'Themes', value: stats.themes, to: '/themes', icon: '🎨', accent: 'text-warning' },
         ]
         : [];
 
+    const quickActions = [
+        { to: '/courses/new', label: '+ New Course', icon: '📚' },
+        { to: '/lessons/new', label: '+ New Lesson', icon: '📖' },
+        { to: '/topics/new', label: '+ New Topic', icon: '🦕' },
+        { to: '/themes/new', label: '+ New Theme', icon: '🎨' },
+        { to: '/kids/new', label: '+ Add Kid', icon: '👦' },
+        { to: '/passwords', label: '+ Password', icon: '🔑' },
+    ];
+
     return (
-        <div className="max-w-5xl mx-auto space-y-6">
-            <div>
-                <h1 className="text-2xl font-bold">Dashboard</h1>
-                <p className="text-base-content/60 text-sm mt-1">Overview of your KidSpark content</p>
+        <div className="max-w-5xl mx-auto space-y-8">
+            {/* Header */}
+            <div className="animate-slide-up">
+                <p className="text-base-content/50 text-sm font-medium">{getGreeting()} 👋</p>
+                <h1 className="text-3xl font-bold font-display tracking-tight mt-0.5">Dashboard</h1>
             </div>
 
+            {/* Stats grid */}
             {loading ? (
-                <div className="flex justify-center py-12">
-                    <span className="loading loading-spinner loading-lg" />
+                <div className="flex justify-center py-16">
+                    <span className="loading loading-spinner loading-lg text-primary" />
                 </div>
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                    {statCards.map((card) => (
+                    {statCards.map((card, i) => (
                         <Link
                             key={card.label}
                             to={card.to}
-                            className="card bg-base-100 shadow hover:shadow-md transition-shadow"
+                            className={`card bg-base-100 border border-base-300 hover:border-primary hover:shadow-lg
+                                        hover:-translate-y-1 transition-all duration-200 animate-slide-up delay-${i + 1}`}
                         >
-                            <div className="card-body p-4 gap-1">
+                            <div className="card-body p-5 gap-2">
                                 <span className="text-2xl">{card.icon}</span>
-                                <p className={`text-2xl font-bold ${card.color}`}>{card.value}</p>
-                                <p className="text-sm text-base-content/60">{card.label}</p>
-                                {card.sub && (
-                                    <p className="text-xs text-base-content/40">{card.sub}</p>
-                                )}
+                                <p className={`text-3xl font-bold font-display ${card.accent}`}>{card.value}</p>
+                                <div>
+                                    <p className="text-sm font-semibold text-base-content/80">{card.label}</p>
+                                    {card.sub && <p className="text-xs text-base-content/40 font-medium">{card.sub}</p>}
+                                </div>
                             </div>
                         </Link>
                     ))}
@@ -80,28 +99,20 @@ export function DashboardPage() {
             )}
 
             {/* Quick actions */}
-            <div className="card bg-base-100 shadow">
-                <div className="card-body">
-                    <h2 className="card-title text-base">Quick Actions</h2>
+            <div className="card bg-base-100 border border-base-300 animate-slide-up delay-5">
+                <div className="card-body p-6 gap-4">
+                    <h2 className="font-bold font-display text-base tracking-tight">Quick Actions</h2>
                     <div className="flex flex-wrap gap-2">
-                        <Link to="/courses/new" className="btn btn-sm btn-outline">
-                            + New Course
-                        </Link>
-                        <Link to="/lessons/new" className="btn btn-sm btn-outline">
-                            + New Lesson
-                        </Link>
-                        <Link to="/topics/new" className="btn btn-sm btn-outline">
-                            + New Topic
-                        </Link>
-                        <Link to="/themes/new" className="btn btn-sm btn-outline">
-                            + New Theme
-                        </Link>
-                        <Link to="/kids/new" className="btn btn-sm btn-outline">
-                            + Add Kid
-                        </Link>
-                        <Link to="/passwords" className="btn btn-sm btn-outline">
-                            + Create Password
-                        </Link>
+                        {quickActions.map((a) => (
+                            <Link
+                                key={a.to}
+                                to={a.to}
+                                className="btn btn-sm btn-outline font-medium gap-1.5 hover:btn-primary transition-all"
+                            >
+                                <span>{a.icon}</span>
+                                {a.label}
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>

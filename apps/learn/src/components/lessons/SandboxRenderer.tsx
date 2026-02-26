@@ -61,7 +61,7 @@ export function SandboxRenderer({ lessonId, content, onComplete }: Props) {
     return (
         <div className="flex flex-col gap-4 max-w-lg mx-auto">
             {/* Progress */}
-            <ProgressBar current={placedCount} total={totalItems} label={`${placedCount} of ${totalItems} placed`} color="bg-accent" />
+            <ProgressBar current={placedCount} total={totalItems} label={`${placedCount} of ${totalItems} placed`} />
 
             {/* Character hint */}
             {content.character && hint && (
@@ -90,10 +90,10 @@ export function SandboxRenderer({ lessonId, content, onComplete }: Props) {
                                 onClick={() => handleItemTap(item)}
                                 disabled={placed}
                                 className={`btn btn-sm transition-all ${placed
-                                        ? 'btn-success opacity-50 cursor-not-allowed'
-                                        : isSelected
-                                            ? 'btn-primary shadow-lg scale-105'
-                                            : 'btn-outline'
+                                    ? 'btn-success opacity-50 cursor-not-allowed'
+                                    : isSelected
+                                        ? 'btn-primary shadow-lg scale-105'
+                                        : 'btn-outline'
                                     }`}
                             >
                                 {item.label}
@@ -116,8 +116,8 @@ export function SandboxRenderer({ lessonId, content, onComplete }: Props) {
                                     key={zone.id}
                                     onClick={() => selectedItemId && handleZoneTap(zone.id)}
                                     className={`min-h-16 rounded-xl border-2 border-dashed p-3 text-center transition-all ${selectedItemId
-                                            ? 'border-primary bg-primary/5 cursor-pointer hover:bg-primary/10'
-                                            : 'border-base-300 cursor-default'
+                                        ? 'border-primary bg-primary/5 cursor-pointer hover:bg-primary/10'
+                                        : 'border-base-300 cursor-default'
                                         }`}
                                 >
                                     <p className="font-semibold text-sm">{zone.label}</p>

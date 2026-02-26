@@ -26,18 +26,18 @@ export function CmsLayout() {
             {/* Page content */}
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
-                <nav className="navbar bg-base-100 border-b border-base-200 sticky top-0 z-10">
+                <nav className="navbar bg-base-100 border-b border-base-300 sticky top-0 z-10 px-4 min-h-14">
                     <div className="flex-none lg:hidden">
-                        <label htmlFor="cms-drawer" className="btn btn-ghost btn-square">
+                        <label htmlFor="cms-drawer" className="btn btn-ghost btn-square btn-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block h-5 w-5 stroke-current">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </label>
                     </div>
                     <div className="flex-1">
-                        <span className="text-lg font-semibold">KidSpark CMS</span>
+                        <span className="text-base font-semibold font-display tracking-tight text-base-content/80">KidSpark CMS</span>
                     </div>
-                    <div className="flex-none gap-2">
+                    <div className="flex-none flex items-center gap-1">
                         <button
                             onClick={toggle}
                             className="btn btn-ghost btn-sm btn-square"
@@ -47,7 +47,7 @@ export function CmsLayout() {
                         </button>
                         <button
                             onClick={logout}
-                            className="btn btn-ghost btn-sm"
+                            className="btn btn-ghost btn-sm text-base-content/50 hover:text-error font-medium"
                         >
                             Sign out
                         </button>
