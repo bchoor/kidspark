@@ -1,8 +1,10 @@
 import { Navigate, Outlet, Link } from 'react-router-dom';
 import { useSession } from '../../hooks/useSession';
+import { useTheme } from '../../hooks/useTheme';
 
 export function LearnLayout() {
     const { isAuthenticated, isLoading, kid, logout } = useSession();
+    const { isDark, toggle } = useTheme();
 
     if (isLoading) {
         return (
@@ -32,6 +34,13 @@ export function LearnLayout() {
                             <span className="text-xl">{kid.avatar ?? '🦁'}</span>
                             <span className="font-semibold text-sm hidden sm:block">{kid.name}</span>
                         </div>
+                        <button
+                            onClick={toggle}
+                            className="btn btn-ghost btn-xs btn-square"
+                            title={isDark ? 'Light mode' : 'Dark mode'}
+                        >
+                            {isDark ? '☀️' : '🌙'}
+                        </button>
                         <button
                             onClick={logout}
                             className="btn btn-ghost btn-xs"
