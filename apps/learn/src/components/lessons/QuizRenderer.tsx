@@ -30,7 +30,7 @@ export function QuizRenderer({ lessonId, content, onComplete }: Props) {
     const questions = content.questions;
     const question: QuizQuestion | undefined = questions[currentIdx];
     const isLast = currentIdx === questions.length - 1;
-    const hint = question?.hints[ageRange];
+    const hint = question?.hints?.[ageRange];
 
     const handleConfirm = useCallback(() => {
         if (!selected || !question) return;

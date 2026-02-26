@@ -20,7 +20,7 @@ function getAgeRange(age: number): keyof AgeHints {
 export function SandboxRenderer({ lessonId, content, onComplete }: Props) {
     const { kid } = useSession();
     const ageRange = getAgeRange(kid?.age ?? 7);
-    const hint = content.hints[ageRange];
+    const hint = content.hints?.[ageRange];
 
     // Track: which item is selected and where items are placed
     const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
@@ -41,7 +41,8 @@ export function SandboxRenderer({ lessonId, content, onComplete }: Props) {
         const item = content.items.find((i) => i.id === selectedItemId);
         if (!item) return;
 
-        const isCorrect = item.correct_zone_id === zoneId;
+        const correctZone = item.correct_zone_id ?? (item as Record<string, unknown>)['correct_zone'] as string;
+        const isCorrect = correctZone === zoneId;
         if (isCorrect) {
             setPlacements((p) => ({ ...p, [selectedItemId]: zoneId }));
             setFeedback({ itemId: selectedItemId, correct: true });
