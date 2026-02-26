@@ -23,7 +23,7 @@ export function ThemeListPage() {
                     <h1 className="text-2xl font-bold">Themes</h1>
                     <p className="text-base-content/60 text-sm">Character themes for lessons</p>
                 </div>
-                <Link to="/cms/themes/new" className="btn btn-primary btn-sm">+ New Theme</Link>
+                <Link to="/themes/new" className="btn btn-primary btn-sm">+ New Theme</Link>
             </div>
 
             {loading && <div className="flex justify-center py-8"><span className="loading loading-spinner" /></div>}
@@ -32,7 +32,7 @@ export function ThemeListPage() {
             {!loading && themes.length === 0 && (
                 <div className="card bg-base-100 shadow">
                     <div className="card-body text-center text-base-content/50">
-                        No themes yet. <Link to="/cms/themes/new" className="link">Create one</Link>.
+                        No themes yet. <Link to="/themes/new" className="link">Create one</Link>.
                     </div>
                 </div>
             )}

@@ -50,7 +50,7 @@ export function LessonListPage() {
                     <h1 className="text-2xl font-bold">Lessons</h1>
                     <p className="text-base-content/60 text-sm">Individual lesson units</p>
                 </div>
-                <Link to="/cms/lessons/new" className="btn btn-primary btn-sm">+ New Lesson</Link>
+                <Link to="/lessons/new" className="btn btn-primary btn-sm">+ New Lesson</Link>
             </div>
 
             {/* Course filter */}
@@ -75,7 +75,7 @@ export function LessonListPage() {
             {!loading && lessons.length === 0 && (
                 <div className="card bg-base-100 shadow">
                     <div className="card-body text-center text-base-content/50">
-                        No lessons yet. <Link to="/cms/lessons/new" className="link">Create one</Link>.
+                        No lessons yet. <Link to="/lessons/new" className="link">Create one</Link>.
                     </div>
                 </div>
             )}

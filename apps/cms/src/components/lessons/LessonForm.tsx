@@ -227,7 +227,7 @@ export function LessonForm() {
 
             {/* Actions */}
             <div className="flex justify-end gap-2 pb-4">
-                <button type="button" onClick={() => navigate('/cms/lessons')} className="btn btn-ghost btn-sm">Cancel</button>
+                <button type="button" onClick={() => navigate('/lessons')} className="btn btn-ghost btn-sm">Cancel</button>
                 <button type="button" onClick={handleSave} disabled={saving} className="btn btn-primary btn-sm">
                     {saving ? <span className="loading loading-spinner loading-xs" /> : isEdit ? 'Save Changes' : 'Create Lesson'}
                 </button>

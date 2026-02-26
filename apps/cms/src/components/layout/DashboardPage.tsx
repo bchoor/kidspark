@@ -39,11 +39,11 @@ export function DashboardPage() {
 
     const statCards = stats
         ? [
-            { label: 'Courses', value: stats.courses, to: '/cms/courses', color: 'text-primary', icon: '📚' },
-            { label: 'Lessons', value: `${stats.publishedLessons} / ${stats.lessons}`, to: '/cms/lessons', color: 'text-success', icon: '📖', sub: 'published' },
-            { label: 'Kids', value: stats.kids, to: '/cms/kids', color: 'text-secondary', icon: '👦' },
-            { label: 'Topics', value: stats.topics, to: '/cms/topics', color: 'text-accent', icon: '🦕' },
-            { label: 'Themes', value: stats.themes, to: '/cms/themes', color: 'text-warning', icon: '🎨' },
+            { label: 'Courses', value: stats.courses, to: '/courses', color: 'text-primary', icon: '📚' },
+            { label: 'Lessons', value: `${stats.publishedLessons} / ${stats.lessons}`, to: '/lessons', color: 'text-success', icon: '📖', sub: 'published' },
+            { label: 'Kids', value: stats.kids, to: '/kids', color: 'text-secondary', icon: '👦' },
+            { label: 'Topics', value: stats.topics, to: '/topics', color: 'text-accent', icon: '🦕' },
+            { label: 'Themes', value: stats.themes, to: '/themes', color: 'text-warning', icon: '🎨' },
         ]
         : [];
 
@@ -84,22 +84,22 @@ export function DashboardPage() {
                 <div className="card-body">
                     <h2 className="card-title text-base">Quick Actions</h2>
                     <div className="flex flex-wrap gap-2">
-                        <Link to="/cms/courses/new" className="btn btn-sm btn-outline">
+                        <Link to="/courses/new" className="btn btn-sm btn-outline">
                             + New Course
                         </Link>
-                        <Link to="/cms/lessons/new" className="btn btn-sm btn-outline">
+                        <Link to="/lessons/new" className="btn btn-sm btn-outline">
                             + New Lesson
                         </Link>
-                        <Link to="/cms/topics/new" className="btn btn-sm btn-outline">
+                        <Link to="/topics/new" className="btn btn-sm btn-outline">
                             + New Topic
                         </Link>
-                        <Link to="/cms/themes/new" className="btn btn-sm btn-outline">
+                        <Link to="/themes/new" className="btn btn-sm btn-outline">
                             + New Theme
                         </Link>
-                        <Link to="/cms/kids/new" className="btn btn-sm btn-outline">
+                        <Link to="/kids/new" className="btn btn-sm btn-outline">
                             + Add Kid
                         </Link>
-                        <Link to="/cms/passwords/new" className="btn btn-sm btn-outline">
+                        <Link to="/passwords/new" className="btn btn-sm btn-outline">
                             + Create Password
                         </Link>
                     </div>

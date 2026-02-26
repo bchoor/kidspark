@@ -14,7 +14,7 @@ export function CmsLayout() {
     }
 
     if (!isAuthenticated) {
-        return <Navigate to="/cms/login" replace />;
+        return <Navigate to="/login" replace />;
     }
 
     return (

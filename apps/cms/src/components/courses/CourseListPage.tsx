@@ -23,7 +23,7 @@ export function CourseListPage() {
                     <h1 className="text-2xl font-bold">Courses</h1>
                     <p className="text-base-content/60 text-sm">Learning course collections</p>
                 </div>
-                <Link to="/cms/courses/new" className="btn btn-primary btn-sm">+ New Course</Link>
+                <Link to="/courses/new" className="btn btn-primary btn-sm">+ New Course</Link>
             </div>
 
             {loading && <div className="flex justify-center py-8"><span className="loading loading-spinner" /></div>}
@@ -32,7 +32,7 @@ export function CourseListPage() {
             {!loading && courses.length === 0 && (
                 <div className="card bg-base-100 shadow">
                     <div className="card-body text-center text-base-content/50">
-                        No courses yet. <Link to="/cms/courses/new" className="link">Create one</Link>.
+                        No courses yet. <Link to="/courses/new" className="link">Create one</Link>.
                     </div>
                 </div>
             )}

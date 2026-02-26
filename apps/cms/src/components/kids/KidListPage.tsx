@@ -23,7 +23,7 @@ export function KidListPage() {
                     <h1 className="text-2xl font-bold">Kids</h1>
                     <p className="text-base-content/60 text-sm">Kid profiles for the learning app</p>
                 </div>
-                <Link to="/cms/kids/new" className="btn btn-primary btn-sm">+ Add Kid</Link>
+                <Link to="/kids/new" className="btn btn-primary btn-sm">+ Add Kid</Link>
             </div>
 
             {loading && <div className="flex justify-center py-8"><span className="loading loading-spinner" /></div>}
@@ -32,7 +32,7 @@ export function KidListPage() {
             {!loading && kids.length === 0 && (
                 <div className="card bg-base-100 shadow">
                     <div className="card-body text-center text-base-content/50">
-                        No kids yet. <Link to="/cms/kids/new" className="link">Add one</Link>.
+                        No kids yet. <Link to="/kids/new" className="link">Add one</Link>.
                     </div>
                 </div>
             )}

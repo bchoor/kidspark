@@ -23,7 +23,7 @@ export function TopicListPage() {
                     <h1 className="text-2xl font-bold">Topics</h1>
                     <p className="text-base-content/60 text-sm">Subject areas for lessons</p>
                 </div>
-                <Link to="/cms/topics/new" className="btn btn-primary btn-sm">+ New Topic</Link>
+                <Link to="/topics/new" className="btn btn-primary btn-sm">+ New Topic</Link>
             </div>
 
             {loading && <div className="flex justify-center py-8"><span className="loading loading-spinner" /></div>}
@@ -32,7 +32,7 @@ export function TopicListPage() {
             {!loading && topics.length === 0 && (
                 <div className="card bg-base-100 shadow">
                     <div className="card-body text-center text-base-content/50">
-                        No topics yet. <Link to="/cms/topics/new" className="link">Create one</Link>.
+                        No topics yet. <Link to="/topics/new" className="link">Create one</Link>.
                     </div>
                 </div>
             )}

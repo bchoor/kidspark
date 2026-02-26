@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 
 const navItems = [
-    { to: '/cms/', label: 'Dashboard', icon: '🏠', end: true },
-    { to: '/cms/courses', label: 'Courses', icon: '📚' },
-    { to: '/cms/lessons', label: 'Lessons', icon: '📖' },
-    { to: '/cms/topics', label: 'Topics', icon: '🦕' },
-    { to: '/cms/themes', label: 'Themes', icon: '🎨' },
-    { to: '/cms/kids', label: 'Kids', icon: '👦' },
-    { to: '/cms/passwords', label: 'Passwords', icon: '🔑' },
+    { to: '/', label: 'Dashboard', icon: '🏠', end: true },
+    { to: '/courses', label: 'Courses', icon: '📚' },
+    { to: '/lessons', label: 'Lessons', icon: '📖' },
+    { to: '/topics', label: 'Topics', icon: '🦕' },
+    { to: '/themes', label: 'Themes', icon: '🎨' },
+    { to: '/kids', label: 'Kids', icon: '👦' },
+    { to: '/passwords', label: 'Passwords', icon: '🔑' },
 ];
 
 export function Sidebar() {

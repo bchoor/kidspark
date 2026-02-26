@@ -41,7 +41,7 @@ export function ThemeForm() {
             const data = { name: form.name, description: form.description, icon_key: form.icon_key || undefined, color_palette: form.color_palette };
             if (isEdit) await api.themes.update(Number(id), data);
             else await api.themes.create(data);
-            navigate('/cms/themes');
+            navigate('/themes');
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Save failed');
         } finally {
@@ -88,7 +88,7 @@ export function ThemeForm() {
                     {error && <div className="alert alert-error text-sm"><span>{error}</span></div>}
 
                     <div className="flex justify-end gap-2 pt-2">
-                        <button type="button" onClick={() => navigate('/cms/themes')} className="btn btn-ghost">Cancel</button>
+                        <button type="button" onClick={() => navigate('/themes')} className="btn btn-ghost">Cancel</button>
                         <button type="submit" disabled={saving || !!paletteError} className="btn btn-primary">
                             {saving ? <span className="loading loading-spinner loading-sm" /> : isEdit ? 'Save' : 'Create'}
                         </button>

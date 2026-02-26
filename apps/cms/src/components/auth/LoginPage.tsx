@@ -23,7 +23,7 @@ export function LoginPage() {
         setSubmitting(true);
         try {
             await login(password);
-            navigate('/cms/', { replace: true });
+            navigate('/', { replace: true });
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Login failed');
         } finally {

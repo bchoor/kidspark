@@ -44,7 +44,7 @@ export function CourseForm() {
             };
             if (isEdit) await api.courses.update(Number(id), data);
             else await api.courses.create(data);
-            navigate('/cms/courses');
+            navigate('/courses');
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Save failed');
         } finally {
@@ -92,7 +92,7 @@ export function CourseForm() {
                     {error && <div className="alert alert-error text-sm"><span>{error}</span></div>}
 
                     <div className="flex justify-end gap-2 pt-2">
-                        <button type="button" onClick={() => navigate('/cms/courses')} className="btn btn-ghost">Cancel</button>
+                        <button type="button" onClick={() => navigate('/courses')} className="btn btn-ghost">Cancel</button>
                         <button type="submit" disabled={saving} className="btn btn-primary">
                             {saving ? <span className="loading loading-spinner loading-sm" /> : isEdit ? 'Save' : 'Create'}
                         </button>
