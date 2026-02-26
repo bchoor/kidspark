@@ -41,7 +41,7 @@ export function SandboxRenderer({ lessonId, content, onComplete }: Props) {
         const item = content.items.find((i) => i.id === selectedItemId);
         if (!item) return;
 
-        const correctZone = item.correct_zone_id ?? (item as Record<string, unknown>)['correct_zone'] as string;
+        const correctZone = item.correct_zone_id ?? (item as unknown as Record<string, unknown>)['correct_zone'] as string;
         const isCorrect = correctZone === zoneId;
         if (isCorrect) {
             setPlacements((p) => ({ ...p, [selectedItemId]: zoneId }));
