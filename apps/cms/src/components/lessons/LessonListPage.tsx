@@ -110,7 +110,7 @@ export function LessonListPage() {
                                     </td>
                                     <td>
                                         <div className="flex gap-1">
-                                            <button onClick={() => navigate(`/cms/lessons/${l.id}`)} className="btn btn-ghost btn-xs">Edit</button>
+                                            <button onClick={() => navigate(`/lessons/${l.id}`)} className="btn btn-ghost btn-xs">Edit</button>
                                             <button onClick={() => handleDelete(l.id)} disabled={deleting === l.id} className="btn btn-ghost btn-xs text-error">
                                                 {deleting === l.id ? <span className="loading loading-spinner loading-xs" /> : 'Del'}
                                             </button>

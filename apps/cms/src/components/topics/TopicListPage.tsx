@@ -63,7 +63,7 @@ export function TopicListPage() {
                                     </td>
                                     <td>
                                         <div className="flex gap-1">
-                                            <button onClick={() => navigate(`/cms/topics/${t.id}`)} className="btn btn-ghost btn-xs">Edit</button>
+                                            <button onClick={() => navigate(`/topics/${t.id}`)} className="btn btn-ghost btn-xs">Edit</button>
                                             <button
                                                 onClick={() => handleDelete(t.id)}
                                                 disabled={deleting === t.id}

@@ -65,8 +65,8 @@ export function CourseListPage() {
                                     </td>
                                     <td>
                                         <div className="flex gap-1">
-                                            <Link to={`/cms/lessons?course_id=${c.id}`} className="btn btn-ghost btn-xs">Lessons</Link>
-                                            <button onClick={() => navigate(`/cms/courses/${c.id}`)} className="btn btn-ghost btn-xs">Edit</button>
+                                            <Link to={`/lessons?course_id=${c.id}`} className="btn btn-ghost btn-xs">Lessons</Link>
+                                            <button onClick={() => navigate(`/courses/${c.id}`)} className="btn btn-ghost btn-xs">Edit</button>
                                             <button onClick={() => handleDelete(c.id)} disabled={deleting === c.id} className="btn btn-ghost btn-xs text-error">
                                                 {deleting === c.id ? <span className="loading loading-spinner loading-xs" /> : 'Del'}
                                             </button>

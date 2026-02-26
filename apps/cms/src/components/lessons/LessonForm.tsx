@@ -70,7 +70,7 @@ export function LessonForm() {
                 await api.lessons.update(Number(id), data);
             } else {
                 const created = await api.lessons.create(data);
-                navigate(`/cms/lessons/${created.id}`, { replace: true });
+                navigate(`/lessons/${created.id}`, { replace: true });
                 return;
             }
         } catch (err) {

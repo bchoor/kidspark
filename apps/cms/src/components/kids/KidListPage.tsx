@@ -57,7 +57,7 @@ export function KidListPage() {
                                     <td className="text-sm">{k.age} yrs</td>
                                     <td>
                                         <div className="flex gap-1">
-                                            <button onClick={() => navigate(`/cms/kids/${k.id}`)} className="btn btn-ghost btn-xs">Edit</button>
+                                            <button onClick={() => navigate(`/kids/${k.id}`)} className="btn btn-ghost btn-xs">Edit</button>
                                             <button onClick={() => handleDelete(k.id)} disabled={deleting === k.id} className="btn btn-ghost btn-xs text-error">
                                                 {deleting === k.id ? <span className="loading loading-spinner loading-xs" /> : 'Del'}
                                             </button>

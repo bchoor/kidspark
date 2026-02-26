@@ -58,7 +58,7 @@ export function ThemeListPage() {
                                         </div>
                                     )}
                                     <div className="flex gap-1 mt-1">
-                                        <button onClick={() => navigate(`/cms/themes/${t.id}`)} className="btn btn-ghost btn-xs flex-1">Edit</button>
+                                        <button onClick={() => navigate(`/themes/${t.id}`)} className="btn btn-ghost btn-xs flex-1">Edit</button>
                                         <button onClick={() => handleDelete(t.id)} disabled={deleting === t.id} className="btn btn-ghost btn-xs text-error">
                                             {deleting === t.id ? <span className="loading loading-spinner loading-xs" /> : 'Del'}
                                         </button>
