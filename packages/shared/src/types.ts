@@ -45,6 +45,8 @@ export interface Lesson {
   created_at: string;
   updated_at: string;
   published_at: string | null;
+  course_slug?: string;
+  next_lesson_id?: number;
 }
 
 export interface Media {

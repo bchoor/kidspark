@@ -24,6 +24,15 @@ export function LessonViewer() {
 
     useEffect(() => {
         if (!lessonId) return;
+
+        // Reset state on new lesson
+        setCompleted(false);
+        setCompletionData({});
+        setLesson(null);
+        setContent(null);
+        setError(null);
+        setLoading(true);
+
         api.lessons.get(lessonId)
             .then((l) => {
                 setLesson(l);
@@ -75,6 +84,8 @@ export function LessonViewer() {
                 totalQuestions={typeof completionData.totalQuestions === 'number' ? completionData.totalQuestions : undefined}
                 pagesRead={typeof completionData.pagesRead === 'number' ? completionData.pagesRead : undefined}
                 totalPages={typeof completionData.totalPages === 'number' ? completionData.totalPages : undefined}
+                courseSlug={lesson.course_slug}
+                nextLessonId={lesson.next_lesson_id}
             />
         );
     }
@@ -94,19 +105,26 @@ export function LessonViewer() {
             </div>
 
             {/* Renderer */}
-            {!content && (
-                <div className="card bg-base-100 shadow p-8 text-center text-base-content/50">
-                    Content coming soon!
+            {(!content || !content.type) ? (
+                <div className="card bg-base-100 shadow-sm p-12 text-center border border-base-300 mt-4">
+                    <span className="text-6xl mb-4 inline-block animate-bounce-in">🚧</span>
+                    <h2 className="text-2xl font-bold font-display text-base-content mb-2 animate-fade-up">This lesson is empty!</h2>
+                    <p className="text-base-content/60 font-medium text-lg leading-relaxed animate-fade-up delay-1">
+                        We're still building this adventure. Check back later to see what happens next!
+                    </p>
                 </div>
-            )}
-            {content?.type === 'story' && (
-                <StoryRenderer lessonId={lessonId} content={content as StoryContent} onComplete={handleComplete} />
-            )}
-            {content?.type === 'quiz' && (
-                <QuizRenderer lessonId={lessonId} content={content as QuizContent} onComplete={handleComplete} />
-            )}
-            {content?.type === 'sandbox' && (
-                <SandboxRenderer lessonId={lessonId} content={content as SandboxContent} onComplete={handleComplete} />
+            ) : (
+                <>
+                    {content.type === 'story' && (
+                        <StoryRenderer lessonId={lessonId} content={content as StoryContent} onComplete={handleComplete} />
+                    )}
+                    {content.type === 'quiz' && (
+                        <QuizRenderer lessonId={lessonId} content={content as QuizContent} onComplete={handleComplete} />
+                    )}
+                    {content.type === 'sandbox' && (
+                        <SandboxRenderer lessonId={lessonId} content={content as SandboxContent} onComplete={handleComplete} />
+                    )}
+                </>
             )}
         </div>
     );

@@ -58,12 +58,22 @@ export async function handleLearn(
     if (lessonMatch && method === 'GET') {
         const id = parseInt(lessonMatch[1]);
         const lesson = await env.DB.prepare(
-            `SELECT id, title, slug, sort_order, activity_type, content_json, hints_json
-       FROM lessons WHERE id = ? AND status = 'published'`
+            `SELECT l.id, l.title, l.slug, l.sort_order, l.activity_type, l.content_json, l.hints_json,
+                    c.slug as course_slug,
+                    (SELECT id FROM lessons WHERE course_id = l.course_id AND sort_order > l.sort_order AND status = 'published' ORDER BY sort_order ASC LIMIT 1) as next_lesson_id
+             FROM lessons l
+             JOIN courses c ON l.course_id = c.id
+             WHERE l.id = ? AND l.status = 'published'`
         )
             .bind(id)
-            .first();
+            .first<any>();
+
         if (!lesson) return json({ error: 'Not found' }, 404);
+
+        if (lesson.content_json === '{}') {
+            lesson.content_json = null;
+        }
+
         return json({ data: lesson });
     }
 
