@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { saveProgress, flushProgress } from '../../lib/progress';
 import { useSession } from '../../hooks/useSession';
@@ -11,6 +11,7 @@ import type { Lesson, LessonContent, StoryContent, QuizContent, SandboxContent }
 
 export function LessonViewer() {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const { kid } = useSession();
     const [lesson, setLesson] = useState<Lesson | null>(null);
     const [content, setContent] = useState<LessonContent | null>(null);
@@ -82,7 +83,7 @@ export function LessonViewer() {
         <div className="max-w-lg mx-auto space-y-4">
             {/* Header */}
             <div className="flex items-center gap-3">
-                <Link to={-1 as unknown as string} className="btn btn-ghost btn-sm btn-square">←</Link>
+                <button onClick={() => navigate(-1)} className="btn btn-ghost btn-sm btn-square">←</button>
                 <div className="flex-1 min-w-0">
                     <h1 className="font-bold text-lg truncate">{lesson.title}</h1>
                     <p className="text-sm text-base-content/50 capitalize">{lesson.activity_type} activity</p>

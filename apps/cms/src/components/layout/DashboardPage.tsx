@@ -99,7 +99,7 @@ export function DashboardPage() {
                         <Link to="/kids/new" className="btn btn-sm btn-outline">
                             + Add Kid
                         </Link>
-                        <Link to="/passwords/new" className="btn btn-sm btn-outline">
+                        <Link to="/passwords" className="btn btn-sm btn-outline">
                             + Create Password
                         </Link>
                     </div>
