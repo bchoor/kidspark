@@ -26,7 +26,7 @@ const STATUS_STYLES: Record<string, { badge: string; ring: string; icon: string 
 
 export function CourseLessonsPage() {
     const { slug } = useParams<{ slug: string }>();
-    const [data, setData] = useState<{ course: Course; lessons: Lesson[] } | null>(null);
+    const [data, setData] = useState<(Course & { lessons: Lesson[] }) | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const { getProgress } = useProgress();
@@ -56,7 +56,8 @@ export function CourseLessonsPage() {
         );
     }
 
-    const { course, lessons } = data;
+    const course = data;
+    const { lessons } = data;
     const completedCount = lessons.filter(l => getProgress(l.id)?.status === 'completed').length;
     const pct = lessons.length > 0 ? Math.round((completedCount / lessons.length) * 100) : 0;
 

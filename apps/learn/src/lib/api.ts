@@ -37,7 +37,7 @@ export const api = {
         list: () =>
             apiFetch<Wrapped<Course[]>>('/api/learn/courses').then((r) => r.data),
         get: (slug: string) =>
-            apiFetch<Wrapped<{ course: Course; lessons: Lesson[] }>>(
+            apiFetch<Wrapped<Course & { lessons: Lesson[] }>>(
                 `/api/learn/courses/${slug}`
             ).then((r) => r.data),
     },
