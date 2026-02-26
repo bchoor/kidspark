@@ -1,10 +1,36 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { SessionProvider } from './hooks/useSession';
+
+// Auth
+import { PasswordGate } from './components/auth/PasswordGate';
+
+// Layout
+import { LearnLayout } from './components/layout/LearnLayout';
+
+// Courses
+import { CourseSelector } from './components/courses/CourseSelector';
+import { CourseLessonsPage } from './components/courses/CourseLessonsPage';
+
+// Lessons
+import { LessonViewer } from './components/lessons/LessonViewer';
+
 export function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200">
-      <div className="card bg-base-100 shadow-xl p-8">
-        <h1 className="text-4xl font-bold text-primary">Hello KidSpark</h1>
-        <p className="text-base-content/70 mt-2">Learning app coming soon</p>
-      </div>
-    </div>
+    <SessionProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Password gate — public */}
+          <Route path="/" element={<PasswordGate />} />
+
+          {/* Authenticated learn app */}
+          <Route element={<LearnLayout />}>
+            <Route path="/courses" element={<CourseSelector />} />
+            <Route path="/courses/:slug" element={<CourseLessonsPage />} />
+            <Route path="/lessons/:id" element={<LessonViewer />} />
+            <Route path="*" element={<Navigate to="/courses" replace />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </SessionProvider>
   );
 }
