@@ -1,9 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { useTheme } from '../../hooks/useTheme';
 import { Sidebar } from './Sidebar';
 
 export function CmsLayout() {
     const { isAuthenticated, isLoading, logout } = useAuth();
+    const { isDark, toggle } = useTheme();
 
     if (isLoading) {
         return (
@@ -36,6 +38,13 @@ export function CmsLayout() {
                         <span className="text-lg font-semibold">KidSpark CMS</span>
                     </div>
                     <div className="flex-none gap-2">
+                        <button
+                            onClick={toggle}
+                            className="btn btn-ghost btn-sm btn-square"
+                            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                        >
+                            {isDark ? '☀️' : '🌙'}
+                        </button>
                         <button
                             onClick={logout}
                             className="btn btn-ghost btn-sm"
